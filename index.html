@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora UERN - Regras Oficiais</title>
+    <style>
+        :root {
+            --primary: #004aad; /* Azul institucional */
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --text: #334155;
+            --success: #15803d;
+            --warning: #b45309;
+            --danger: #b91c1c;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: var(--card);
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 420px;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-bottom: 2rem;
+        }
+
+        .config-section {
+            background: #f1f5f9;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .radio-label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+
+        .radio-label input {
+            margin-right: 0.5rem;
+            accent-color: var(--primary);
+        }
+
+        .input-group {
+            margin-bottom: 1.2rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: border-color 0.2s;
+        }
+
+        input[type="number"]:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        button {
+            width: 100%;
+            padding: 1rem;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-top: 1rem;
+        }
+
+        button:hover {
+            background-color: #003680;
+        }
+
+        #result {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            display: none;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .status-title {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            opacity: 0.8;
+        }
+
+        .status-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .status-message {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .final-needed {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(0,0,0,0.1);
+            font-size: 1rem;
+        }
+
+        .approved { background-color: #dcfce7; color: var(--success); border: 1px solid #bbf7d0; }
+        .exam { background-color: #fef9c3; color: var(--warning); border: 1px solid #fde047; }
+        .failed { background-color: #fee2e2; color: var(--danger); border: 1px solid #fecaca; }
+
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Calculadora Acadêmica</h1>
+        <div class="subtitle">Conforme Resolução Nº 01/2022 - Consuni</div>
+
+        <div class="config-section">
+            <label>Créditos da Disciplina:</label>
+            <div class="radio-group">
+                <label class="radio-label">
+                    <input type="radio" name="creditos" value="3plus" checked onchange="toggleInputs()">
+                    3 ou mais
+                </label>
+                <label class="radio-label">
+                    <input type="radio" name="creditos" value="2" onchange="toggleInputs()">
+                    2 créditos
+                </label>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label for="a1">Avaliação 1 (A1) - Peso 4</label>
+            <input type="number" id="a1" placeholder="0.0" min="0" max="10" step="0.1">
+        </div>
+
+        <div class="input-group">
+            <label for="a2">Avaliação 2 (A2) - Peso 5</label>
+            <input type="number" id="a2" placeholder="0.0" min="0" max="10" step="0.1">
+        </div>
+
+        <div class="input-group" id="container-a3">
+            <label for="a3">Avaliação 3 (A3) - Peso 6</label>
+            <input type="number" id="a3" placeholder="0.0" min="0" max="10" step="0.1">
+        </div>
+
+        <button onclick="calcular()">Calcular Situação</button>
+
+        <div id="result">
+            <div class="status-title">Média Parcial (Arredondada)</div>
+            <div class="status-value" id="media-valor">0.0</div>
+            <div class="status-message" id="status-texto"></div>
+            <div id="msg-final" class="final-needed hidden"></div>
+        </div>
+    </div>
+
+    <script>
+        function toggleInputs() {
+            const creditos = document.querySelector('input[name="creditos"]:checked').value;
+            const containerA3 = document.getElementById('container-a3');
+            
+            if (creditos === '2') {
+                containerA3.classList.add('hidden');
+                document.getElementById('a3').value = '';
+            } else {
+                containerA3.classList.remove('hidden');
+            }
+            document.getElementById('result').style.display = 'none';
+        }
+
+        // Função de arredondamento conforme Art. 146
+        // "indo até a primeira casa decimal, após o arredondamento da segunda casa decimal"
+        function arredondarNota(valor) {
+            return Math.round(valor * 10) / 10;
+        }
+
+        function calcular() {
+            const creditos = document.querySelector('input[name="creditos"]:checked').value;
+            
+            const a1 = parseFloat(document.getElementById('a1').value) || 0;
+            const a2 = parseFloat(document.getElementById('a2').value) || 0;
+            const a3 = parseFloat(document.getElementById('a3').value) || 0;
+
+            let mpRaw = 0;
+
+            // Cálculo da Média Ponderada crua
+            if (creditos === '3plus') {
+                mpRaw = ((a1 * 4) + (a2 * 5) + (a3 * 6)) / 15;
+            } else {
+                mpRaw = ((a1 * 4) + (a2 * 5)) / 9;
+            }
+
+            // Aplica regra de arredondamento ANTES de verificar aprovação
+            const mpFinal = arredondarNota(mpRaw);
+
+            mostrarResultado(mpFinal);
+        }
+
+        function mostrarResultado(media) {
+            const resultDiv = document.getElementById('result');
+            const valorDiv = document.getElementById('media-valor');
+            const textoDiv = document.getElementById('status-texto');
+            const msgFinalDiv = document.getElementById('msg-final');
+            
+            resultDiv.className = ''; 
+            resultDiv.style.display = 'block';
+            msgFinalDiv.classList.add('hidden');
+
+            // Exibe a média com 1 casa decimal (ex: 6.9 ou 7.0)
+            valorDiv.innerText = media.toFixed(1);
+
+            // Regras de Aprovação
+            if (media >= 7.0) {
+                resultDiv.classList.add('approved');
+                textoDiv.innerText = "APROVADO POR MÉDIA";
+            } else if (media >= 4.0) {
+                // EXAME FINAL
+                resultDiv.classList.add('exam');
+                textoDiv.innerText = "EXAME FINAL";
+                
+                // Cálculo Art. 145: (MP + EF) / 2 >= 6.0
+                // MP + EF >= 12.0
+                // EF >= 12.0 - MP
+                let notaNecessaria = 12.0 - media;
+                
+                // Se o cálculo der negativo (impossível matematicamente mas só por segurança) ou > 10
+                if (notaNecessaria > 10) {
+                     msgFinalDiv.innerHTML = `Situação crítica: Necessário <strong>${notaNecessaria.toFixed(1)}</strong> (Matematicamente impossível chegar a 6.0).`;
+                } else {
+                    // Nota necessária também pode ser arredondada na exibição, mas o cálculo exato é melhor
+                    // Vamos arredondar para cima para garantir a média
+                    notaNecessaria = Math.max(0, notaNecessaria);
+                    
+                    msgFinalDiv.classList.remove('hidden');
+                    msgFinalDiv.innerHTML = `Para obter Média Final 6.0, você precisa tirar: <br><strong style="font-size: 1.4rem; color: #b45309">${notaNecessaria.toFixed(1)}</strong>`;
+                }
+                
+            } else {
+                // REPROVADO (< 4.0)
+                resultDiv.classList.add('failed');
+                textoDiv.innerText = "REPROVADO";
+            }
+        }
+    </script>
+</body>
+</html>
