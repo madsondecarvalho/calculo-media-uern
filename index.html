@@ -7,7 +7,7 @@
     <style>
         :root {
             --primary: #004aad; /* Azul institucional */
-            --bg: #f8fafc;
+            --bg: #00529B; /* Azul institucional UERN */
             --card: #ffffff;
             --text: #334155;
             --success: #15803d;
@@ -22,18 +22,31 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            height: 100vh;
             margin: 0;
-            padding: 20px;
+            padding: 0;
+            overflow: hidden;
         }
 
         .container {
             background-color: var(--card);
             padding: 2.5rem;
             border-radius: 16px;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
             width: 100%;
             max-width: 420px;
+            max-height: 95vh;
+            overflow-y: auto;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .logo img {
+            max-width: 200px;
+            height: auto;
         }
 
         h1 {
@@ -170,6 +183,9 @@
 <body>
 
     <div class="container">
+        <div class="logo">
+            <img src="https://portal.uern.br/miv/wp-content/uploads/sites/13/2022/10/MIVAtivo-3MARCA.png" alt="UERN Logo">
+        </div>
         <h1>Calculadora Acadêmica</h1>
         <div class="subtitle">Conforme Resolução Nº 01/2022 - Consuni</div>
 
